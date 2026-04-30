@@ -654,7 +654,7 @@ export default {
       emit('changed', isDirty.value)
     }, { deep: true })
 
-    watch(() => props.officer, hydrateData, { immediate: true, deep: true })
+    watch(() => props.officer, hydrateData, { immediate: true })
 
     return {
       formData,
