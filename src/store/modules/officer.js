@@ -88,6 +88,11 @@ const actions = {
   async updateOrganizationCode ({ state, commit, rootState },params) {
     return await crud.update(import.meta.env.VITE_API_SERVER+"/"+state.model.name+"/update_organization_code",params)
   },
+  async delete ({ state, commit, rootState }, params) {
+    return await crud.delete(
+      import.meta.env.VITE_API_SERVER+"/"+state.model.name+"/"+params.id+"/delete"
+    )
+  },
   async activate({state, commit, rootState}, params){
     return await crud.update(import.meta.env.VITE_API_SERVER+"/"+state.model.name+"/activate",params)
   },

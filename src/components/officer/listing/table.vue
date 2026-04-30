@@ -914,6 +914,28 @@
                     </button>
                     <button
                       v-if="
+                        $hasPermission('portal_staff_print_preview_officer_card')
+                      "
+                      type="button"
+                      class="inline-flex items-center gap-1.5 px-2.5 h-7 rounded-md border border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100 hover:border-violet-300 shadow-sm hover:shadow duration-200"
+                      @click="showOfficialCardModal(record)"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 28 28"
+                      >
+                        <g fill="none">
+                          <path
+                            d="M15 11.75a.75.75 0 0 1 .75-.75h5.5a.75.75 0 0 1 0 1.5h-5.5a.75.75 0 0 1-.75-.75zm.75 3.25a.75.75 0 0 0 0 1.5h5.5a.75.75 0 0 0 0-1.5h-5.5zm-4.5-3.25a1.75 1.75 0 1 1-3.5 0a1.75 1.75 0 0 1 3.5 0zM7 14.5h5a1 1 0 0 1 1 1v.5s-.5 2.5-3.5 2.5S6 16 6 16v-.5a1 1 0 0 1 1-1zM2.004 6.75A2.75 2.75 0 0 1 4.754 4H23.25A2.75 2.75 0 0 1 26 6.75v14.5A2.75 2.75 0 0 1 23.25 24H4.755a2.75 2.75 0 0 1-2.75-2.75V6.75zm2.75-1.25c-.69 0-1.25.56-1.25 1.25v14.5c0 .69.56 1.25 1.25 1.25H23.25c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25H4.755z"
+                            fill="currentColor"
+                          />
+                        </g>
+                      </svg>
+                      <span class="text-xs leading-none">កាត</span>
+                    </button>
+                    <button
+                      v-if="
                         $hasPermission('portal_staff_background_information')
                       "
                       type="button"
@@ -931,9 +953,72 @@
                           d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.83H5v-.92l9.06-9.06l.92.92L5.92 20.08zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83l3.75 3.75l1.84-1.82z"
                         />
                       </svg>
-                      <span class="text-xs leading-none"
+                      <span class="text-xs leading-none">កែប្រែ</span>
+                      <span class="hidden text-xs leading-none"
                         >កែប្រវត្តិរូបមន្ត្រី</span
                       >
+                    </button>
+                    <button
+                      v-if="$hasPermission('portal_staff_delete')"
+                      type="button"
+                      class="inline-flex items-center gap-1.5 px-2.5 h-7 rounded-md border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-300 shadow-sm hover:shadow duration-200"
+                      @click="deleteOfficer(record)"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="32"
+                        />
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-miterlimit="10"
+                          stroke-width="32"
+                          d="M80 112h352"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M192 112V72h0a23.93 23.93 0 0 1 24-24h80a23.93 23.93 0 0 1 24 24h0v40"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="32"
+                        />
+                        <path
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="32"
+                          d="M256 176v224"
+                        />
+                        <path
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="32"
+                          d="M184 176l8 224"
+                        />
+                        <path
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="32"
+                          d="M328 176l-8 224"
+                        />
+                      </svg>
+                      <span class="text-xs leading-none">លុប</span>
                     </button>
                   </div>
                   <!-- <table-actions-form v-bind:model="model" v-bind:record="record" :onClose="closeActions" /> -->
@@ -1219,6 +1304,13 @@
       v-bind:show="detailModal.show"
       :onClose="closeDetailModal"
     />
+    <official-card-form
+      v-if="officialCardModal.show"
+      v-bind:model="model"
+      v-bind:record="officialCardModal.record"
+      v-bind:show="officialCardModal.show"
+      :onClose="closeOfficialCardModal"
+    />
     <n-modal
       v-model:show="printProfileModal.show"
       :mask-closable="true"
@@ -1331,6 +1423,7 @@ import { useRouter, useRoute } from "vue-router";
 import QrcodeVue from "qrcode.vue";
 import Vue3Barcode from "vue3-barcode";
 import {
+  useDialog,
   useMessage,
   useNotification,
 } from "naive-ui";
@@ -1343,6 +1436,7 @@ import CreateForm from "./../widgets/create.vue";
 import CreateNonOfficerForm from "./../widgets/createnonofficer.vue";
 import TableActionsForm from "./actions/table-action.vue";
 import DetailForm from "./../widgets/detail.vue";
+import OfficialCardForm from "./../widgets/officialcard.vue";
 import ReportComponent from "./../../reports/officersinorg/tablestyle-div.vue";
 export default {
   name: "People",
@@ -1380,6 +1474,7 @@ export default {
     QrcodeVue,
     Vue3Barcode,
     DetailForm,
+    OfficialCardForm,
     /**
      * Forms
      */
@@ -1413,6 +1508,7 @@ export default {
 
     const store = useStore();
     const route = useRoute();
+    const dialog = useDialog();
     const message = useMessage();
     const notify = useNotification();
     const router = useRouter();
@@ -2037,6 +2133,53 @@ export default {
       printProfileModal.show = false;
     }
 
+    const officialCardModal = reactive({
+      show: false,
+      record: null,
+    });
+
+    function showOfficialCardModal(record) {
+      officialCardModal.record = record;
+      officialCardModal.show = true;
+    }
+
+    function closeOfficialCardModal() {
+      officialCardModal.show = false;
+      officialCardModal.record = null;
+    }
+
+    function deleteOfficer(record) {
+      dialog.warning({
+        title: "លុបមន្ត្រី",
+        content: "តើអ្នកចង់លុបមន្ត្រីនេះមែនទេ?",
+        positiveText: "លុប",
+        negativeText: "បោះបង់",
+        onPositiveClick: () => {
+          store
+            .dispatch(model.name + "/delete", { id: record.id })
+            .then((res) => {
+              if (res.data.ok) {
+                notify.success({
+                  title: "លុបមន្ត្រី",
+                  description: res.data.message || "លុបមន្ត្រីបានសម្រេច។",
+                  duration: 3000,
+                });
+                getRecords();
+              } else {
+                notify.error({
+                  title: "លុបមន្ត្រី",
+                  description: res.data.message || "មិនអាចលុបមន្ត្រីនេះបានទេ។",
+                  duration: 3000,
+                });
+              }
+            })
+            .catch((err) => {
+              message.error(String(err));
+            });
+        },
+      });
+    }
+
     function goToReportByOrganization(organizationId) {
       reportToggleFunc();
       // if (organizationId == null) return false;
@@ -2656,6 +2799,10 @@ export default {
       openCreateProfileDraftPage,
       goToOfficerProfile,
       goToOfficerPrintProfile,
+      showOfficialCardModal,
+      closeOfficialCardModal,
+      officialCardModal,
+      deleteOfficer,
       printProfileModal,
       closePrintProfileModal,
       reportSelectedOrganization,
