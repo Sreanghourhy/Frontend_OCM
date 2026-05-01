@@ -2,11 +2,16 @@
   <div class="relative z-0 isolate w-full min-w-0 flex flex-col">
     <div class="flex title-bar border-b border-gray-200 bg-white">
       <div class="flex w-64 h-10 shrink-0 py-1 px-4 items-center">
-        <div class="font-moul text-sm leading-8 truncate" v-html="model.title" />
+        <div
+          class="font-moul text-sm leading-8 truncate"
+          v-html="model.title"
+        />
       </div>
-      <div class="flex-grow action-buttons flex items-center justify-end px-4 gap-3">
+      <div
+        class="flex-grow action-buttons flex items-center justify-end px-4 gap-3"
+      >
         <div class="mt-0 mr-0 flex flex-wrap justify-end">
-          <n-tooltip trigger="hover">
+          <n-tooltip v-if="false" trigger="hover">
             <template #trigger>
               <n-dropdown
                 trigger="click"
@@ -78,7 +83,7 @@
                         class="bg-gray-50 px-2 h-8 w-full rounded border border-gray-200 focus:border-green-600 hover:border-green-600 duration-300"
                         placeholder="ស្វែងរក"
                         @keypress.enter="filterRecords(false)"
-                      >
+                      />
                       <svg
                         class="absolute right-1 top-1 w-6 h-6 text-gray-400 cursor-pointer"
                         xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +157,8 @@
                           >
                             <span
                               class="shrink-0 text-xs font-sr text-gray-500 leading-none"
-                            >អាយុពី</span>
+                              >អាយុពី</span
+                            >
                             <span
                               class="ocm-age-range-value inline-flex h-6 max-h-6 max-w-full min-w-0 items-center rounded border border-gray-200 bg-white px-2 py-0 text-xs font-sr font-medium leading-tight text-gray-800 shadow-sm"
                             >
@@ -164,7 +170,8 @@
                           <span
                             v-else
                             class="truncate leading-none text-gray-400"
-                          >អាយុ</span>
+                            >អាយុ</span
+                          >
                           <div
                             v-if="ageRangeFilterLabel"
                             class="flex shrink-0 items-center"
@@ -208,7 +215,8 @@
                       >
                         <span
                           class="shrink-0 text-xs font-sr text-gray-600 leading-none"
-                        >ចាប់ពី</span>
+                          >ចាប់ពី</span
+                        >
                         <n-select
                           v-model:value="ageRangeFrom"
                           :options="ageSelectOptions"
@@ -222,7 +230,8 @@
                         />
                         <span
                           class="shrink-0 text-xs font-sr text-gray-600 leading-none"
-                        >ដល់</span>
+                          >ដល់</span
+                        >
                         <n-select
                           v-model:value="ageRangeTo"
                           :options="ageSelectOptions"
@@ -310,7 +319,11 @@
             >
               <template #trigger>
                 <button class="vcb-table-toggle-btn" type="button">
-                  <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                  <svg
+                    class="w-5 h-5"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 32 32"
+                  >
                     <path
                       d="M4 6h24v20H4V6zm2 2v4h20V8H6zm0 6v4h6v-4H6zm8 0v4h12v-4H14zM6 20v4h6v-4H6zm8 0v4h12v-4H14z"
                       fill="currentColor"
@@ -327,13 +340,21 @@
                     <button
                       type="button"
                       class="relative w-10 h-5 rounded-full transition-colors duration-200 focus:outline-none"
-                      :class="columnVisibility.avatar ? 'bg-blue-600' : 'bg-gray-300'"
+                      :class="
+                        columnVisibility.avatar ? 'bg-blue-600' : 'bg-gray-300'
+                      "
                       aria-label="toggle avatar column"
-                      @click="columnVisibility.avatar = !columnVisibility.avatar"
+                      @click="
+                        columnVisibility.avatar = !columnVisibility.avatar
+                      "
                     >
                       <span
                         class="absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full transition-transform duration-200"
-                        :class="columnVisibility.avatar ? 'translate-x-5' : 'translate-x-0'"
+                        :class="
+                          columnVisibility.avatar
+                            ? 'translate-x-5'
+                            : 'translate-x-0'
+                        "
                       />
                     </button>
                   </div>
@@ -342,22 +363,50 @@
                   បង្ហាញ / លាក់ជួរឈរ
                 </div>
                 <div class="vcb-table-toggle-items">
-                  <n-checkbox v-model:checked="columnVisibility.nid">លេខអត្តសញ្ញាណបណ្ណ</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.khName">ឈ្មោះខ្មែរ</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.enName">ឈ្មោះឡាតាំង</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.dob">ថ្ងៃខែឆ្នាំកំណើត</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.unofficialDate">ថ្ងៃខែឆ្នាំចូលធ្វើការ</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.organization">អង្គភាព</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.certificate">កម្រិតអប់រំ</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.email">អាសយដ្ឋានអេឡិចត្រូនិច</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.phone">លេខទូរស័ព្ទ</n-checkbox>
-                  <n-checkbox v-model:checked="columnVisibility.userCreatedAt">ថ្ងៃបង្កើត</n-checkbox>
+                  <n-checkbox v-model:checked="columnVisibility.nid"
+                    >លេខអត្តសញ្ញាណបណ្ណ</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.khName"
+                    >ឈ្មោះខ្មែរ</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.enName"
+                    >ឈ្មោះឡាតាំង</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.dob"
+                    >ថ្ងៃខែឆ្នាំកំណើត</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.unofficialDate"
+                    >ថ្ងៃខែឆ្នាំចូលធ្វើការ</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.organization"
+                    >អង្គភាព</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.certificate"
+                    >កម្រិតអប់រំ</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.email"
+                    >អាសយដ្ឋានអេឡិចត្រូនិច</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.phone"
+                    >លេខទូរស័ព្ទ</n-checkbox
+                  >
+                  <n-checkbox v-model:checked="columnVisibility.userCreatedAt"
+                    >ថ្ងៃបង្កើត</n-checkbox
+                  >
                 </div>
                 <div class="vcb-table-toggle-footer">
-                  <button class="vcb-table-toggle-link" type="button" @click="setAllColumns(true)">
+                  <button
+                    class="vcb-table-toggle-link"
+                    type="button"
+                    @click="setAllColumns(true)"
+                  >
                     បង្ហាញជួរឈរទាំងអស់
                   </button>
-                  <button class="vcb-table-toggle-link" type="button" @click="setAllColumns(false)">
+                  <button
+                    class="vcb-table-toggle-link"
+                    type="button"
+                    @click="setAllColumns(false)"
+                  >
                     លាក់ជួរឈរទាំងអស់
                   </button>
                 </div>
@@ -367,30 +416,56 @@
         </div>
       </div>
 
-      <div class="otc-table-hscroll min-w-0 overflow-x-auto overscroll-x-contain">
+      <div
+        class="otc-table-hscroll min-w-0 overflow-x-auto overscroll-x-contain"
+      >
         <Transition name="fade">
           <table
-            v-if="Array.isArray(table.records.matched) && table.records.matched.length > 0"
+            v-if="
+              Array.isArray(table.records.matched) &&
+              table.records.matched.length > 0
+            "
             class="otc-table"
           >
             <thead>
               <tr class="otc-header-row">
                 <th>ល.រ</th>
-                <th v-if="columnVisibility.nid" class="text-left">លេខអត្តសញ្ញាណបណ្ណ</th>
-                <th v-if="columnVisibility.khName" class="text-left min-w-[200px]">ឈ្មោះខ្មែរ</th>
-                <th v-if="columnVisibility.enName" class="text-left">ឈ្មោះឡាតាំង</th>
-                <th v-if="columnVisibility.dob" class="text-left">ថ្ងៃខែឆ្នាំកំណើត</th>
-                <th v-if="columnVisibility.unofficialDate" class="text-left">ថ្ងៃខែឆ្នាំចូលធ្វើការ</th>
+                <th v-if="columnVisibility.nid" class="text-left">
+                  លេខអត្តសញ្ញាណបណ្ណ
+                </th>
+                <th
+                  v-if="columnVisibility.khName"
+                  class="text-left min-w-[200px]"
+                >
+                  ឈ្មោះខ្មែរ
+                </th>
+                <th v-if="columnVisibility.enName" class="text-left">
+                  ឈ្មោះឡាតាំង
+                </th>
+                <th v-if="columnVisibility.dob" class="text-left">
+                  ថ្ងៃខែឆ្នាំកំណើត
+                </th>
+                <th v-if="columnVisibility.unofficialDate" class="text-left">
+                  ថ្ងៃខែឆ្នាំចូលធ្វើការ
+                </th>
                 <th
                   v-if="columnVisibility.organization"
                   class="text-left min-w-[11rem] max-w-[15rem] whitespace-nowrap"
                 >
                   អង្គភាព
                 </th>
-                <th v-if="columnVisibility.certificate" class="text-left">កម្រិតអប់រំ</th>
-                <th v-if="columnVisibility.email" class="text-left">អាសយដ្ឋានអេឡិចត្រូនិច</th>
-                <th v-if="columnVisibility.phone" class="text-left">លេខទូរស័ព្ទ</th>
-                <th v-if="columnVisibility.userCreatedAt" class="text-left">ថ្ងៃបង្កើត</th>
+                <th v-if="columnVisibility.certificate" class="text-left">
+                  កម្រិតអប់រំ
+                </th>
+                <th v-if="columnVisibility.email" class="text-left">
+                  អាសយដ្ឋានអេឡិចត្រូនិច
+                </th>
+                <th v-if="columnVisibility.phone" class="text-left">
+                  លេខទូរស័ព្ទ
+                </th>
+                <th v-if="columnVisibility.userCreatedAt" class="text-left">
+                  ថ្ងៃបង្កើត
+                </th>
                 <th
                   class="otc-col-actions otc-col-actions-head text-xs font-medium text-black whitespace-nowrap text-left"
                   scope="col"
@@ -408,7 +483,8 @@
                 <td>
                   {{
                     $toKhmer(
-                      (table.pagination.page - 1) * table.pagination.perPage + (index + 1),
+                      (table.pagination.page - 1) * table.pagination.perPage +
+                        (index + 1),
                     )
                   }}
                 </td>
@@ -417,32 +493,46 @@
                   class="text-left"
                   v-html="
                     $toKhmer(
-                      highlightMultipleTerms(record.people?.nid, table.pagination.search),
+                      highlightMultipleTerms(
+                        record.people?.nid,
+                        table.pagination.search,
+                      ),
                     )
                   "
                 />
-                <td v-if="columnVisibility.khName" class="text-left min-w-[200px]">
+                <td
+                  v-if="columnVisibility.khName"
+                  class="text-left min-w-[200px]"
+                >
                   <div class="flex items-center gap-3">
                     <img
                       v-if="columnVisibility.avatar"
                       class="w-8 h-8 rounded-full object-cover border border-gray-200"
                       :src="
                         record.image != null &&
-                          record.image !== false &&
-                          record.image !== undefined &&
-                          record.image !== ''
+                        record.image !== false &&
+                        record.image !== undefined &&
+                        record.image !== ''
                           ? record.image
                           : ocmLogoUrl
                       "
                       alt="avatar"
                       loading="lazy"
-                    >
+                    />
                     <span
                       v-html="
-                        (record.countesy != null ? record.countesy.name + '<br/>' : '') +
-                          (highlightMultipleTerms(record.people?.lastname, table.pagination.search) +
-                            ' ' +
-                            highlightMultipleTerms(record.people?.firstname, table.pagination.search))
+                        (record.countesy != null
+                          ? record.countesy.name + '<br/>'
+                          : '') +
+                        (highlightMultipleTerms(
+                          record.people?.lastname,
+                          table.pagination.search,
+                        ) +
+                          ' ' +
+                          highlightMultipleTerms(
+                            record.people?.firstname,
+                            table.pagination.search,
+                          ))
                       "
                     />
                   </div>
@@ -451,9 +541,15 @@
                   v-if="columnVisibility.enName"
                   class="text-left"
                   v-html="
-                    highlightMultipleTerms(record.people?.enlastname, table.pagination.search) +
-                      ' ' +
-                      highlightMultipleTerms(record.people?.enfirstname, table.pagination.search)
+                    highlightMultipleTerms(
+                      record.people?.enlastname,
+                      table.pagination.search,
+                    ) +
+                    ' ' +
+                    highlightMultipleTerms(
+                      record.people?.enfirstname,
+                      table.pagination.search,
+                    )
                   "
                 />
                 <td v-if="columnVisibility.dob" class="text-left">
@@ -468,40 +564,55 @@
                 >
                   <div class="line-clamp-2 break-words leading-7 text-[13px]">
                     {{
-                      record.current_job?.organization_structure_position?.organization_structure
-                        ?.organization?.name
+                      record.current_job?.organization_structure_position
+                        ?.organization_structure?.organization?.name
                     }}
                   </div>
                 </td>
                 <td v-if="columnVisibility.certificate" class="text-left">
                   {{ getOfficerCertificateText(record) }}
                 </td>
-                <td v-if="columnVisibility.email" class="text-left">{{ record.email }}</td>
+                <td v-if="columnVisibility.email" class="text-left">
+                  {{ record.email }}
+                </td>
                 <td v-if="columnVisibility.phone" class="text-left">
-                  {{ record.people?.mobile_phone ?? '' }}
+                  {{ record.people?.mobile_phone ?? "" }}
                 </td>
                 <td v-if="columnVisibility.userCreatedAt" class="text-left">
                   <template
                     v-if="
                       record.user != null &&
-                        record.user.created_at != null &&
-                        record.user.created_at !== ''
+                      record.user.created_at != null &&
+                      record.user.created_at !== ''
                     "
                   >
                     {{
-                      $toKhmer(dateFormat(new Date(record.user.created_at), 'dd-mm-yyyy'))
+                      $toKhmer(
+                        dateFormat(
+                          new Date(record.user.created_at),
+                          "dd-mm-yyyy",
+                        ),
+                      )
                     }}
                   </template>
                 </td>
-                <td class="otc-col-actions otc-col-actions-cell text-left align-middle">
+                <td
+                  class="otc-col-actions otc-col-actions-cell text-left align-middle"
+                >
                   <div class="flex items-center gap-1 whitespace-nowrap">
                     <button
-                      v-if="$hasPermission('portal_staff_background_information')"
+                      v-if="
+                        $hasPermission('portal_staff_background_information')
+                      "
                       type="button"
                       class="inline-flex items-center gap-1.5 px-2.5 h-7 rounded-md border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:border-blue-300 shadow-sm hover:shadow duration-200"
                       @click="goToOfficerPrintProfile(record.id)"
                     >
-                      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <svg
+                        class="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           fill="currentColor"
                           d="M12 5c-5.5 0-9.5 4.1-10.8 6.2a1.5 1.5 0 0 0 0 1.6C2.5 14.9 6.5 19 12 19s9.5-4.1 10.8-6.2a1.5 1.5 0 0 0 0-1.6C21.5 9.1 17.5 5 12 5zm0 12c-4.5 0-7.9-3.3-9.2-5c1.3-1.7 4.7-5 9.2-5s7.9 3.3 9.2 5c-1.3 1.7-4.7 5-9.2 5zm0-8a3 3 0 1 0 0 6a3 3 0 0 0 0-6z"
@@ -510,18 +621,26 @@
                       <span class="text-xs leading-none">មើល</span>
                     </button>
                     <button
-                      v-if="$hasPermission('portal_staff_background_information')"
+                      v-if="
+                        $hasPermission('portal_staff_background_information')
+                      "
                       type="button"
                       class="inline-flex items-center gap-1.5 px-2.5 h-7 rounded-md border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 hover:border-amber-300 shadow-sm hover:shadow duration-200"
                       @click="goToOfficerProfile(record.id)"
                     >
-                      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <svg
+                        class="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                      >
                         <path
                           fill="currentColor"
                           d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.83H5v-.92l9.06-9.06l.92.92L5.92 20.08zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83l3.75 3.75l1.84-1.82z"
                         />
                       </svg>
-                      <span class="text-xs leading-none">កែប្រវត្តិរូបមន្ត្រី</span>
+                      <span class="text-xs leading-none"
+                        >កែប្រវត្តិរូបមន្ត្រី</span
+                      >
                     </button>
                   </div>
                 </td>
@@ -548,11 +667,18 @@
                   fill="currentColor"
                 />
               </svg>
-              <br><br>កំពុងអាន...
+              <br /><br />កំពុងអាន...
             </div>
           </div>
-          <div class="absolute top-2 right-2 cursor-pointer bg-white rounded-full" @click="closeTableLoading">
-            <svg class="w-10 mx-auto text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <div
+            class="absolute top-2 right-2 cursor-pointer bg-white rounded-full"
+            @click="closeTableLoading"
+          >
+            <svg
+              class="w-10 mx-auto text-red-500"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+            >
               <path
                 d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192s192-86 192-192z"
                 fill="none"
@@ -583,7 +709,10 @@
 
       <div class="fixed left-0 right-0 bottom-8 flex flex-wrap">
         <Transition name="slide-fade">
-          <div v-if="table.pagination.totalPages > 1" class="vcb-table-pagination bg-blue-300 mx-auto">
+          <div
+            v-if="table.pagination.totalPages > 1"
+            class="vcb-table-pagination bg-blue-300 mx-auto"
+          >
             <n-tooltip trigger="hover">
               <template #trigger>
                 <n-popselect
@@ -593,37 +722,55 @@
                   scrollable
                   @update:value="goTo(1)"
                 >
-                  <div class="cursor-pointer font-pvh rounded-full p-2 px-4 border border-gray-200 text-blue-600">
+                  <div
+                    class="cursor-pointer font-pvh rounded-full p-2 px-4 border border-gray-200 text-blue-600"
+                  >
                     {{ $toKhmer(table.pagination.perPage) }}
                   </div>
                 </n-popselect>
               </template>
               ចំនួនព័ត៌មានបង្ហាញម្ដង
             </n-tooltip>
-            <div class="vcb-table-pagination-info font-pvh text-blue-600 p-1 mx-2">
+            <div
+              class="vcb-table-pagination-info font-pvh text-blue-600 p-1 mx-2"
+            >
               {{
                 table.pagination.totalRecords > 0
-                  ? $toKhmer(table.pagination.totalRecords) + ' ឯកសារ'
-                  : ''
+                  ? $toKhmer(table.pagination.totalRecords) + " ឯកសារ"
+                  : ""
               }}
             </div>
-            <div class="vcb-table-pagination-info font-pvh text-blue-600 p-1 mx-2">
+            <div
+              class="vcb-table-pagination-info font-pvh text-blue-600 p-1 mx-2"
+            >
               {{
-                table.pagination.totalPages > 0 ? $toKhmer(table.pagination.totalPages) + ' ទំព័រ' : ''
+                table.pagination.totalPages > 0
+                  ? $toKhmer(table.pagination.totalPages) + " ទំព័រ"
+                  : ""
               }}
             </div>
             <div
               v-for="(page, index) in table.pagination.buttons"
               :key="index"
               :class="
-                table.pagination.page === page ? ' vcb-pagination-page-active ' : ' vcb-pagination-page '
+                table.pagination.page === page
+                  ? ' vcb-pagination-page-active '
+                  : ' vcb-pagination-page '
               "
               @click="table.pagination.page === page ? false : goTo(page)"
             >
               {{ $toKhmer(page) }}
             </div>
-            <div v-if="table.pagination.page > 1" class="vcb-pagination-page p-1" @click="first()">
-              <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <div
+              v-if="table.pagination.page > 1"
+              class="vcb-pagination-page p-1"
+              @click="first()"
+            >
+              <svg
+                class="w-5 h-5 mx-auto"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
                 <path
                   d="M18.29 17.29a.996.996 0 0 0 0-1.41L14.42 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L12.3 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.38.38 1.01.38 1.4-.01z"
                   fill="currentColor"
@@ -635,8 +782,16 @@
               </svg>
             </div>
             <Transition name="slide-fade">
-              <div v-if="table.pagination.page > 1" class="vcb-pagination-page p-1" @click="previous()">
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <div
+                v-if="table.pagination.page > 1"
+                class="vcb-pagination-page p-1"
+                @click="previous()"
+              >
+                <svg
+                  class="w-5 h-5 mx-auto"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     d="M14.71 15.88L10.83 12l3.88-3.88a.996.996 0 1 0-1.41-1.41L8.71 11.3a.996.996 0 0 0 0 1.41l4.59 4.59c.39.39 1.02.39 1.41 0c.38-.39.39-1.03 0-1.42z"
                     fill="currentColor"
@@ -650,7 +805,11 @@
                 class="vcb-pagination-page p-1"
                 @click="next()"
               >
-                <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <svg
+                  class="w-5 h-5 mx-auto"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     d="M9.29 15.88L13.17 12L9.29 8.12a.996.996 0 1 1 1.41-1.41l4.59 4.59c.39.39.39 1.02 0 1.41L10.7 17.3a.996.996 0 0 1-1.41 0c-.38-.39-.39-1.03 0-1.42z"
                     fill="currentColor"
@@ -663,7 +822,11 @@
               class="vcb-pagination-page p-1"
               @click="last()"
             >
-              <svg class="w-5 h-5 mx-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <svg
+                class="w-5 h-5 mx-auto"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
                 <path
                   d="M5.7 6.71a.996.996 0 0 0 0 1.41L9.58 12L5.7 15.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L7.12 6.71c-.39-.39-1.03-.39-1.42 0z"
                   fill="currentColor"
@@ -684,14 +847,21 @@
       :mask-closable="true"
       style="width: min(96vw, 1400px)"
     >
-      <div class="relative rounded-lg overflow-hidden bg-white shadow-xl" style="height: 90vh">
+      <div
+        class="relative rounded-lg overflow-hidden bg-white shadow-xl"
+        style="height: 90vh"
+      >
         <button
           type="button"
           class="absolute top-3 right-3 z-10 inline-flex items-center justify-center w-11 h-11 rounded-full border border-red-200 bg-red-50 text-red-600 hover:bg-red-100 hover:border-red-300 shadow-sm duration-200"
           aria-label="close preview"
           @click="closePrintProfileModal"
         >
-          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <svg
+            class="w-5 h-5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
             <path
               fill="currentColor"
               d="M18.3 5.71a1 1 0 0 0-1.42 0L12 10.59L7.12 5.7A1 1 0 1 0 5.7 7.12L10.59 12L5.7 16.88a1 1 0 1 0 1.42 1.42L12 13.41l4.88 4.89a1 1 0 0 0 1.42-1.42L13.41 12l4.89-4.88a1 1 0 0 0 0-1.41z"
@@ -763,30 +933,30 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed, watch, getCurrentInstance } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter, useRoute } from 'vue-router'
-import { useNotification } from 'naive-ui'
-import ocmLogoUrl from '@assets/logo.svg'
-import dateFormat from 'dateformat'
-import ReportComponent from '@components/reports/officersinorg/tablestyle-div.vue'
+import { reactive, ref, computed, watch, getCurrentInstance } from "vue";
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
+import { useNotification } from "naive-ui";
+import ocmLogoUrl from "@assets/logo.svg";
+import dateFormat from "dateformat";
+import ReportComponent from "@components/reports/officersinorg/tablestyle-div.vue";
 
-const store = useStore()
-const router = useRouter()
-const route = useRoute()
-const notify = useNotification()
+const store = useStore();
+const router = useRouter();
+const route = useRoute();
+const notify = useNotification();
 
-const OTHER_OFFICER_TYPES = ['contracted_officer']
+const OTHER_OFFICER_TYPES = ["contracted_officer"];
 
 const model = reactive({
-  name: 'officer',
-  module: 'officers',
-  title: 'មន្ត្រីផ្សេងៗ',
-})
+  name: "officer",
+  module: "officers",
+  title: "មន្ត្រីផ្សេងៗ",
+});
 
 const table = reactive({
   loading: false,
-  search: '',
+  search: "",
   records: { all: [], matched: [] },
   pagination: {
     perPage: 20,
@@ -797,7 +967,7 @@ const table = reactive({
     end: 0,
     buttons: [],
   },
-})
+});
 
 const columnVisibility = reactive({
   nid: true,
@@ -811,355 +981,394 @@ const columnVisibility = reactive({
   email: false,
   phone: false,
   userCreatedAt: false,
-})
+});
 
-const COLUMN_VISIBILITY_STORAGE_KEY = 'ocm.hr.officer.other.listing.columnVisibility.v1'
+const COLUMN_VISIBILITY_STORAGE_KEY =
+  "ocm.hr.officer.other.listing.columnVisibility.v1";
 
-function loadColumnVisibility () {
+function loadColumnVisibility() {
   try {
-    if (typeof window === 'undefined' || !window.localStorage) return
-    const raw = window.localStorage.getItem(COLUMN_VISIBILITY_STORAGE_KEY)
-    if (!raw) return
-    const parsed = JSON.parse(raw)
-    if (!parsed || typeof parsed !== 'object') return
+    if (typeof window === "undefined" || !window.localStorage) return;
+    const raw = window.localStorage.getItem(COLUMN_VISIBILITY_STORAGE_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object") return;
     Object.keys(columnVisibility).forEach((k) => {
-      if (typeof parsed[k] === 'boolean') {
-        columnVisibility[k] = parsed[k]
+      if (typeof parsed[k] === "boolean") {
+        columnVisibility[k] = parsed[k];
       }
-    })
+    });
   } catch {
     /* ignore */
   }
 }
 
-function persistColumnVisibility () {
+function persistColumnVisibility() {
   try {
-    if (typeof window === 'undefined' || !window.localStorage) return
-    window.localStorage.setItem(COLUMN_VISIBILITY_STORAGE_KEY, JSON.stringify({ ...columnVisibility }))
+    if (typeof window === "undefined" || !window.localStorage) return;
+    window.localStorage.setItem(
+      COLUMN_VISIBILITY_STORAGE_KEY,
+      JSON.stringify({ ...columnVisibility }),
+    );
   } catch {
     /* ignore */
   }
 }
 
-loadColumnVisibility()
+loadColumnVisibility();
 
-let persistColumnVisibilityTimer = null
+let persistColumnVisibilityTimer = null;
 watch(
   columnVisibility,
   () => {
-    if (persistColumnVisibilityTimer) clearTimeout(persistColumnVisibilityTimer)
+    if (persistColumnVisibilityTimer)
+      clearTimeout(persistColumnVisibilityTimer);
     persistColumnVisibilityTimer = setTimeout(() => {
-      persistColumnVisibility()
-    }, 200)
+      persistColumnVisibility();
+    }, 200);
   },
   { deep: true },
-)
+);
 
-function setAllColumns (isVisible) {
+function setAllColumns(isVisible) {
   Object.keys(columnVisibility).forEach((k) => {
-    columnVisibility[k] = isVisible
-  })
+    columnVisibility[k] = isVisible;
+  });
 }
 
-const isWildSearch = ref(false)
-const AGE_FILTER_MIN = 18
-const AGE_FILTER_MAX = 150
-const ageRangeFrom = ref(null)
-const ageRangeTo = ref(null)
+const isWildSearch = ref(false);
+const AGE_FILTER_MIN = 18;
+const AGE_FILTER_MAX = 150;
+const ageRangeFrom = ref(null);
+const ageRangeTo = ref(null);
 /** True when both ages were set and we applied the range; used to refetch if user then clears one side. */
-const ageRangeFilterWasActive = ref(false)
+const ageRangeFilterWasActive = ref(false);
 const ageSelectOptions = Array.from(
   { length: AGE_FILTER_MAX - AGE_FILTER_MIN + 1 },
   (_, i) => {
-    const n = AGE_FILTER_MIN + i
-    return { label: String(n), value: n }
+    const n = AGE_FILTER_MIN + i;
+    return { label: String(n), value: n };
   },
-)
+);
 const ageRangeFilterLabel = computed(() => {
   if (ageRangeFrom.value == null || ageRangeTo.value == null) {
-    return ''
+    return "";
   }
-  const a = Number(ageRangeFrom.value)
-  const b = Number(ageRangeTo.value)
+  const a = Number(ageRangeFrom.value);
+  const b = Number(ageRangeTo.value);
   if (Number.isNaN(a) || Number.isNaN(b)) {
-    return ''
+    return "";
   }
-  return `${Math.min(a, b)} - ${Math.max(a, b)}`
-})
-const unofficialDateTs = ref(null)
-const selectedGender = ref(null)
-const selectedPositions = ref(null)
-const selectedUnofficialPositions = ref(null)
-const selectedRanks = ref(null)
-const selectedOrganizations = ref(null)
-const selectedEducationLevels = ref(null)
+  return `${Math.min(a, b)} - ${Math.max(a, b)}`;
+});
+const unofficialDateTs = ref(null);
+const selectedGender = ref(null);
+const selectedPositions = ref(null);
+const selectedUnofficialPositions = ref(null);
+const selectedRanks = ref(null);
+const selectedOrganizations = ref(null);
+const selectedEducationLevels = ref(null);
 
 const peopleIds = ref(
   route.params.ids !== undefined && String(route.params.ids).trim().length > 0
-    ? String(route.params.ids).split(',')
+    ? String(route.params.ids).split(",")
     : null,
-)
+);
 
-const MERGED_EDUCATION_LEVEL_VALUE_PREFIX = '__merged_education_level__:'
+const MERGED_EDUCATION_LEVEL_VALUE_PREFIX = "__merged_education_level__:";
 
-function formatEducationLevelOptionLabel (record) {
+function formatEducationLevelOptionLabel(record) {
   const normalizeEducationLabel = (value) => {
-    if (typeof value !== 'string') return ''
-    const normalizedValue = value.trim()
-    if (normalizedValue.startsWith('កម្រិតវប្បធម') && normalizedValue.includes(' - ')) {
-      return normalizedValue.split(' - ').pop().trim()
+    if (typeof value !== "string") return "";
+    const normalizedValue = value.trim();
+    if (
+      normalizedValue.startsWith("កម្រិតវប្បធម") &&
+      normalizedValue.includes(" - ")
+    ) {
+      return normalizedValue.split(" - ").pop().trim();
     }
-    return normalizedValue
-  }
-  const primaryLabel = normalizeEducationLabel(record?.name)
-  if (primaryLabel !== '') return primaryLabel
+    return normalizedValue;
+  };
+  const primaryLabel = normalizeEducationLabel(record?.name);
+  if (primaryLabel !== "") return primaryLabel;
   const fallbackLabel = [record?.education_level, record?.name]
-    .filter((value) => typeof value === 'string' && value.trim() !== '')
+    .filter((value) => typeof value === "string" && value.trim() !== "")
     .map((value) => value.trim())
-    .join(' - ')
-  if (fallbackLabel.startsWith('កម្រិតវប្បធម') && fallbackLabel.includes(' - ')) {
-    return fallbackLabel.split(' - ').pop().trim()
+    .join(" - ");
+  if (
+    fallbackLabel.startsWith("កម្រិតវប្បធម") &&
+    fallbackLabel.includes(" - ")
+  ) {
+    return fallbackLabel.split(" - ").pop().trim();
   }
-  return fallbackLabel
+  return fallbackLabel;
 }
 
 const educationLevelIdsMap = computed(() => {
   const educationLevels =
-    Array.isArray(store.getters['certificate/getGroups']) && store.getters['certificate/getGroups'].length > 0
-      ? store.getters['certificate/getGroups']
-      : []
+    Array.isArray(store.getters["certificate/getGroups"]) &&
+    store.getters["certificate/getGroups"].length > 0
+      ? store.getters["certificate/getGroups"]
+      : [];
   return educationLevels.reduce((groups, educationLevel) => {
-    const label = formatEducationLevelOptionLabel(educationLevel)
-    if (!groups.has(label)) groups.set(label, [])
-    groups.get(label).push(educationLevel.id)
-    return groups
-  }, new Map())
-})
+    const label = formatEducationLevelOptionLabel(educationLevel);
+    if (!groups.has(label)) groups.set(label, []);
+    groups.get(label).push(educationLevel.id);
+    return groups;
+  }, new Map());
+});
 
-function getEducationLevelOptionOrder (label) {
-  const normalizedLabel = String(label || '').trim()
-  if (normalizedLabel === 'ផ្សេងៗ') return 2
-  if (normalizedLabel.includes('វិញ្ញាប')) return 1
-  return 0
+function getEducationLevelOptionOrder(label) {
+  const normalizedLabel = String(label || "").trim();
+  if (normalizedLabel === "ផ្សេងៗ") return 2;
+  if (normalizedLabel.includes("វិញ្ញាប")) return 1;
+  return 0;
 }
 
 const optionEducationLevels = computed(() => {
   return Array.from(educationLevelIdsMap.value.entries())
-    .sort(([leftLabel], [rightLabel]) => getEducationLevelOptionOrder(leftLabel) - getEducationLevelOptionOrder(rightLabel))
+    .sort(
+      ([leftLabel], [rightLabel]) =>
+        getEducationLevelOptionOrder(leftLabel) -
+        getEducationLevelOptionOrder(rightLabel),
+    )
     .map(([label, ids]) => {
       const value =
-        ids.length > 1 ? `${MERGED_EDUCATION_LEVEL_VALUE_PREFIX}${ids.join(',')}` : ids[0]
-      return { label, value }
-    })
-})
+        ids.length > 1
+          ? `${MERGED_EDUCATION_LEVEL_VALUE_PREFIX}${ids.join(",")}`
+          : ids[0];
+      return { label, value };
+    });
+});
 
-function getSelectedEducationLevelIds () {
+function getSelectedEducationLevelIds() {
   if (!Array.isArray(selectedEducationLevels.value)) {
-    return selectedEducationLevels.value
+    return selectedEducationLevels.value;
   }
   return Array.from(
     new Set(
       selectedEducationLevels.value.flatMap((value) => {
-        if (typeof value === 'string' && value.startsWith(MERGED_EDUCATION_LEVEL_VALUE_PREFIX)) {
+        if (
+          typeof value === "string" &&
+          value.startsWith(MERGED_EDUCATION_LEVEL_VALUE_PREFIX)
+        ) {
           return value
             .slice(MERGED_EDUCATION_LEVEL_VALUE_PREFIX.length)
-            .split(',')
-            .map((id) => Number(id))
+            .split(",")
+            .map((id) => Number(id));
         }
-        return value == null ? [] : [value]
+        return value == null ? [] : [value];
       }),
     ),
-  )
+  );
 }
 
 const optionOrganizations = computed(() => {
   let organizations =
-    Array.isArray(store.getters['organization/getRecords']) && store.getters['organization/getRecords'].length > 0
-      ? store.getters['organization/getRecords']
-      : []
-  organizations = organizations.map((p) => ({ label: p.name, value: p.id }))
-  organizations.unshift({ label: 'ស្ថាប័ន / អង្គភាព', value: null })
-  return organizations
-})
+    Array.isArray(store.getters["organization/getRecords"]) &&
+    store.getters["organization/getRecords"].length > 0
+      ? store.getters["organization/getRecords"]
+      : [];
+  organizations = organizations.map((p) => ({ label: p.name, value: p.id }));
+  organizations.unshift({ label: "ស្ថាប័ន / អង្គភាព", value: null });
+  return organizations;
+});
 
-function hasOrganizationRecords () {
-  return Array.isArray(store.getters['organization/getRecords']) && store.getters['organization/getRecords'].length > 0
+function hasOrganizationRecords() {
+  return (
+    Array.isArray(store.getters["organization/getRecords"]) &&
+    store.getters["organization/getRecords"].length > 0
+  );
 }
 
-function getOrganizations () {
-  if (hasOrganizationRecords()) return Promise.resolve()
+function getOrganizations() {
+  if (hasOrganizationRecords()) return Promise.resolve();
   return store
-    .dispatch('organization/organizationStructure', {
+    .dispatch("organization/organizationStructure", {
       page: 1,
       perPage: 1000,
-      search: '',
+      search: "",
       id: 0,
     })
     .then((res) => {
-      store.commit('organization/setRecords', res.data.records)
+      store.commit("organization/setRecords", res.data.records);
     })
     .catch((err) => {
-      notify.error({ title: 'អានអង្គភាព', description: 'មានបញ្ហាពេលអានអានអង្គភាព។' })
-      console.log(err)
-    })
+      notify.error({
+        title: "អានអង្គភាព",
+        description: "មានបញ្ហាពេលអានអានអង្គភាព។",
+      });
+      console.log(err);
+    });
 }
 
-function hasCertificateRecords () {
-  return Array.isArray(store.getters['certificate/getGroups']) && store.getters['certificate/getGroups'].length > 0
+function hasCertificateRecords() {
+  return (
+    Array.isArray(store.getters["certificate/getGroups"]) &&
+    store.getters["certificate/getGroups"].length > 0
+  );
 }
 
-function getCertificates () {
-  if (hasCertificateRecords()) return Promise.resolve()
+function getCertificates() {
+  if (hasCertificateRecords()) return Promise.resolve();
   return store
-    .dispatch('certificate/group', { page: 1, perPage: 1000, search: '' })
+    .dispatch("certificate/group", { page: 1, perPage: 1000, search: "" })
     .then((res) => {
-      store.commit('certificate/setGroups', res.data.records)
+      store.commit("certificate/setGroups", res.data.records);
     })
     .catch((err) => {
-      notify.error({ title: 'អានកម្រិតអប់រំ', description: 'មានបញ្ហាពេលអានកម្រិតអប់រំ។' })
-      console.log(err)
-    })
+      notify.error({
+        title: "អានកម្រិតអប់រំ",
+        description: "មានបញ្ហាពេលអានកម្រិតអប់រំ។",
+      });
+      console.log(err);
+    });
 }
 
-let filterRecordsDebounceTimer = null
+let filterRecordsDebounceTimer = null;
 
-function agesToDobRangeString (ageFrom, ageTo) {
+function agesToDobRangeString(ageFrom, ageTo) {
   if (ageFrom == null || ageTo == null) {
-    return false
+    return false;
   }
-  let a = Number(ageFrom)
-  let b = Number(ageTo)
+  let a = Number(ageFrom);
+  let b = Number(ageTo);
   if (Number.isNaN(a) || Number.isNaN(b)) {
-    return false
+    return false;
   }
-  a = Math.max(AGE_FILTER_MIN, Math.min(AGE_FILTER_MAX, a))
-  b = Math.max(AGE_FILTER_MIN, Math.min(AGE_FILTER_MAX, b))
+  a = Math.max(AGE_FILTER_MIN, Math.min(AGE_FILTER_MAX, a));
+  b = Math.max(AGE_FILTER_MIN, Math.min(AGE_FILTER_MAX, b));
   if (a > b) {
-    const t = a
-    a = b
-    b = t
+    const t = a;
+    a = b;
+    b = t;
   }
-  const now = new Date()
-  const minDob = new Date(now.getFullYear() - b, now.getMonth(), now.getDate())
-  const maxDob = new Date(now.getFullYear() - a, now.getMonth(), now.getDate())
-  return dateFormat(minDob, 'yyyy-mm-dd') + ',' + dateFormat(maxDob, 'yyyy-mm-dd')
+  const now = new Date();
+  const minDob = new Date(now.getFullYear() - b, now.getMonth(), now.getDate());
+  const maxDob = new Date(now.getFullYear() - a, now.getMonth(), now.getDate());
+  return (
+    dateFormat(minDob, "yyyy-mm-dd") + "," + dateFormat(maxDob, "yyyy-mm-dd")
+  );
 }
 
-function personAgeFromDob (dob) {
-  if (dob == null || dob === '') {
-    return null
+function personAgeFromDob(dob) {
+  if (dob == null || dob === "") {
+    return null;
   }
-  const s = String(dob)
-  const m = s.slice(0, 10).match(/^(\d{4})-(\d{2})-(\d{2})/)
-  const now = new Date()
+  const s = String(dob);
+  const m = s.slice(0, 10).match(/^(\d{4})-(\d{2})-(\d{2})/);
+  const now = new Date();
   if (m) {
-    const y = parseInt(m[1], 10)
-    const mo = parseInt(m[2], 10) - 1
-    const d = parseInt(m[3], 10)
+    const y = parseInt(m[1], 10);
+    const mo = parseInt(m[2], 10) - 1;
+    const d = parseInt(m[3], 10);
     if (Number.isNaN(y) || Number.isNaN(mo) || Number.isNaN(d)) {
-      return null
+      return null;
     }
-    const birth = new Date(y, mo, d)
-    let age = now.getFullYear() - birth.getFullYear()
-    const md = now.getMonth() - birth.getMonth()
+    const birth = new Date(y, mo, d);
+    let age = now.getFullYear() - birth.getFullYear();
+    const md = now.getMonth() - birth.getMonth();
     if (md < 0 || (md === 0 && now.getDate() < birth.getDate())) {
-      age -= 1
+      age -= 1;
     }
-    return age
+    return age;
   }
-  const t = new Date(s)
+  const t = new Date(s);
   if (Number.isNaN(t.getTime())) {
-    return null
+    return null;
   }
-  let age = now.getFullYear() - t.getFullYear()
-  const md = now.getMonth() - t.getMonth()
+  let age = now.getFullYear() - t.getFullYear();
+  const md = now.getMonth() - t.getMonth();
   if (md < 0 || (md === 0 && now.getDate() < t.getDate())) {
-    age -= 1
+    age -= 1;
   }
-  return age
+  return age;
 }
 
-function filterListByClientAgeRange (records, fromVal, toVal) {
+function filterListByClientAgeRange(records, fromVal, toVal) {
   if (!Array.isArray(records)) {
-    return []
+    return [];
   }
   if (fromVal == null || toVal == null) {
-    return records
+    return records;
   }
-  let lo = Number(fromVal)
-  let hi = Number(toVal)
+  let lo = Number(fromVal);
+  let hi = Number(toVal);
   if (Number.isNaN(lo) || Number.isNaN(hi)) {
-    return records
+    return records;
   }
   if (lo > hi) {
-    const t = lo
-    lo = hi
-    hi = t
+    const t = lo;
+    lo = hi;
+    hi = t;
   }
   return records.filter((r) => {
-    const age = personAgeFromDob(r?.people?.dob)
+    const age = personAgeFromDob(r?.people?.dob);
     if (age == null) {
-      return false
+      return false;
     }
-    return age >= lo && age <= hi
-  })
+    return age >= lo && age <= hi;
+  });
 }
 
-function onAgeRangeUpdate () {
-  const from = ageRangeFrom.value
-  const to = ageRangeTo.value
-  const both = from != null && to != null
-  const neither = from == null && to == null
+function onAgeRangeUpdate() {
+  const from = ageRangeFrom.value;
+  const to = ageRangeTo.value;
+  const both = from != null && to != null;
+  const neither = from == null && to == null;
   if (both) {
-    ageRangeFilterWasActive.value = true
-    filterRecords(false)
-    return
+    ageRangeFilterWasActive.value = true;
+    filterRecords(false);
+    return;
   }
   if (neither) {
-    ageRangeFilterWasActive.value = false
-    filterRecords(false)
-    return
+    ageRangeFilterWasActive.value = false;
+    filterRecords(false);
+    return;
   }
   if (ageRangeFilterWasActive.value) {
-    ageRangeFilterWasActive.value = false
-    filterRecords(false)
+    ageRangeFilterWasActive.value = false;
+    filterRecords(false);
   }
 }
 
-function clearAgeRangeFilter () {
-  ageRangeFrom.value = null
-  ageRangeTo.value = null
-  ageRangeFilterWasActive.value = false
-  filterRecords(false)
+function clearAgeRangeFilter() {
+  ageRangeFrom.value = null;
+  ageRangeTo.value = null;
+  ageRangeFilterWasActive.value = false;
+  filterRecords(false);
 }
 
-function filterRecords (helper = true) {
+function filterRecords(helper = true) {
   if (helper) {
-    table.records.matched = []
-    if (table.search !== '') {
+    table.records.matched = [];
+    if (table.search !== "") {
       for (const index in table.records.all) {
         for (const field in table.records.all[index]) {
-          if (String(table.records.all[index][field]).includes(table.search) !== false) {
-            table.records.matched.push(table.records.all[index])
-            break
+          if (
+            String(table.records.all[index][field]).includes(table.search) !==
+            false
+          ) {
+            table.records.matched.push(table.records.all[index]);
+            break;
           }
         }
       }
     }
     if (table.records.matched.length <= 0) {
-      table.records.matched = table.records.all
+      table.records.matched = table.records.all;
     }
   } else {
-    if (filterRecordsDebounceTimer) clearTimeout(filterRecordsDebounceTimer)
+    if (filterRecordsDebounceTimer) clearTimeout(filterRecordsDebounceTimer);
     filterRecordsDebounceTimer = setTimeout(() => {
-      table.pagination.page = 1
-      getRecords()
-    }, 500)
+      table.pagination.page = 1;
+      getRecords();
+    }, 500);
   }
 }
 
-function getRecords () {
-  table.loading = true
+function getRecords() {
+  table.loading = true;
   const requestParams = {
     search: table.search,
     perPage: table.pagination.perPage,
@@ -1174,119 +1383,132 @@ function getRecords () {
     ids: peopleIds.value,
     officer_types: OTHER_OFFICER_TYPES,
     dob_range: agesToDobRangeString(ageRangeFrom.value, ageRangeTo.value),
-    dob: '',
+    dob: "",
     unofficial_date:
       unofficialDateTs.value != null && parseInt(unofficialDateTs.value, 10) > 0
-        ? dateFormat(new Date(unofficialDateTs.value), 'yyyy-mm')
-        : '',
-    official_date: '',
-  }
+        ? dateFormat(new Date(unofficialDateTs.value), "yyyy-mm")
+        : "",
+    official_date: "",
+  };
 
   store
     .dispatch(`${model.name}/list`, requestParams)
     .then((res) => {
-      const raw = res.data.records
+      const raw = res.data.records;
       table.records.all = table.records.matched = filterListByClientAgeRange(
         Array.isArray(raw) ? raw : [],
         ageRangeFrom.value,
         ageRangeTo.value,
-      )
-      table.pagination = res.data.pagination
-      const paginationNumberList = 10
-      if (table.pagination.page - (parseInt(paginationNumberList / 2, 10) + 1) < 1) {
-        table.pagination.start = 1
+      );
+      table.pagination = res.data.pagination;
+      const paginationNumberList = 10;
+      if (
+        table.pagination.page - (parseInt(paginationNumberList / 2, 10) + 1) <
+        1
+      ) {
+        table.pagination.start = 1;
         table.pagination.end =
-          table.pagination.totalPages > paginationNumberList ? paginationNumberList : table.pagination.totalPages
+          table.pagination.totalPages > paginationNumberList
+            ? paginationNumberList
+            : table.pagination.totalPages;
       } else {
-        table.pagination.start = table.pagination.page - parseInt(paginationNumberList / 2, 10)
+        table.pagination.start =
+          table.pagination.page - parseInt(paginationNumberList / 2, 10);
         table.pagination.end =
           table.pagination.page >= table.pagination.totalPages
             ? table.pagination.totalPages
-            : table.pagination.page + parseInt(paginationNumberList / 2, 10)
+            : table.pagination.page + parseInt(paginationNumberList / 2, 10);
       }
-      table.pagination.buttons = []
+      table.pagination.buttons = [];
       for (let i = table.pagination.start; i <= table.pagination.end; i++) {
-        if (i <= table.pagination.totalPages) table.pagination.buttons.push(i)
+        if (i <= table.pagination.totalPages) table.pagination.buttons.push(i);
       }
-      closeTableLoading()
+      closeTableLoading();
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
     })
     .finally(() => {
-      table.loading = false
-    })
+      table.loading = false;
+    });
 }
 
-function isNonEmptySelection (v) {
-  if (v == null) return false
-  if (Array.isArray(v)) return v.length > 0
-  return v !== ''
+function isNonEmptySelection(v) {
+  if (v == null) return false;
+  if (Array.isArray(v)) return v.length > 0;
+  return v !== "";
 }
 
-function clearAllFilters () {
+function clearAllFilters() {
   if (filterRecordsDebounceTimer) {
-    clearTimeout(filterRecordsDebounceTimer)
-    filterRecordsDebounceTimer = null
+    clearTimeout(filterRecordsDebounceTimer);
+    filterRecordsDebounceTimer = null;
   }
-  table.search = ''
-  selectedRanks.value = null
-  selectedOrganizations.value = null
-  selectedEducationLevels.value = null
-  selectedPositions.value = null
-  selectedUnofficialPositions.value = null
-  selectedGender.value = null
-  ageRangeFrom.value = null
-  ageRangeTo.value = null
-  ageRangeFilterWasActive.value = false
-  unofficialDateTs.value = null
-  isWildSearch.value = false
-  peopleIds.value = null
-  table.pagination.page = 1
-  getRecords()
+  table.search = "";
+  selectedRanks.value = null;
+  selectedOrganizations.value = null;
+  selectedEducationLevels.value = null;
+  selectedPositions.value = null;
+  selectedUnofficialPositions.value = null;
+  selectedGender.value = null;
+  ageRangeFrom.value = null;
+  ageRangeTo.value = null;
+  ageRangeFilterWasActive.value = false;
+  unofficialDateTs.value = null;
+  isWildSearch.value = false;
+  peopleIds.value = null;
+  table.pagination.page = 1;
+  getRecords();
 }
 
 const hasActiveFilters = computed(() => {
-  if (String(table.search || '').trim().length > 0) return true
-  if (isNonEmptySelection(selectedRanks.value)) return true
-  if (isNonEmptySelection(selectedOrganizations.value)) return true
-  if (isNonEmptySelection(selectedPositions.value)) return true
-  if (isNonEmptySelection(selectedUnofficialPositions.value)) return true
-  if (isNonEmptySelection(selectedEducationLevels.value)) return true
-  if (selectedGender.value != null) return true
-  if (ageRangeFrom.value != null && ageRangeTo.value != null) return true
-  if (unofficialDateTs.value != null && parseInt(String(unofficialDateTs.value), 10) > 0) {
-    return true
+  if (String(table.search || "").trim().length > 0) return true;
+  if (isNonEmptySelection(selectedRanks.value)) return true;
+  if (isNonEmptySelection(selectedOrganizations.value)) return true;
+  if (isNonEmptySelection(selectedPositions.value)) return true;
+  if (isNonEmptySelection(selectedUnofficialPositions.value)) return true;
+  if (isNonEmptySelection(selectedEducationLevels.value)) return true;
+  if (selectedGender.value != null) return true;
+  if (ageRangeFrom.value != null && ageRangeTo.value != null) return true;
+  if (
+    unofficialDateTs.value != null &&
+    parseInt(String(unofficialDateTs.value), 10) > 0
+  ) {
+    return true;
   }
-  if (isWildSearch.value === true) return true
-  if (Array.isArray(peopleIds.value) && peopleIds.value.length > 0) return true
-  return false
-})
+  if (isWildSearch.value === true) return true;
+  if (Array.isArray(peopleIds.value) && peopleIds.value.length > 0) return true;
+  return false;
+});
 
-function closeTableLoading () {
-  table.loading = false
+function closeTableLoading() {
+  table.loading = false;
 }
 
-function first () {
-  goTo(table.pagination.totalPages > 0 ? 1 : 0)
+function first() {
+  goTo(table.pagination.totalPages > 0 ? 1 : 0);
 }
-function previous () {
-  goTo(table.pagination.page <= 1 ? 1 : table.pagination.page - 1)
+function previous() {
+  goTo(table.pagination.page <= 1 ? 1 : table.pagination.page - 1);
 }
-function next () {
+function next() {
   goTo(
     table.pagination.page >= table.pagination.totalPages
       ? table.pagination.totalPages
       : table.pagination.page + 1,
-  )
+  );
 }
-function last () {
-  goTo(table.pagination.totalPages > 0 ? table.pagination.totalPages : 0)
+function last() {
+  goTo(table.pagination.totalPages > 0 ? table.pagination.totalPages : 0);
 }
-function goTo (page) {
+function goTo(page) {
   table.pagination.page =
-    page >= table.pagination.totalPages ? table.pagination.totalPages : page < 1 ? 1 : page
-  getRecords()
+    page >= table.pagination.totalPages
+      ? table.pagination.totalPages
+      : page < 1
+        ? 1
+        : page;
+  getRecords();
 }
 
 const perPageOptions = [
@@ -1299,112 +1521,134 @@ const perPageOptions = [
   { label: 100, value: 100 },
   { label: 200, value: 200 },
   { label: 500, value: 500 },
-]
+];
 
-function openCreateProfileDraftPage () {
-  router.push('/officer-others/create')
+function openCreateProfileDraftPage() {
+  router.push("/officer-others/create");
 }
 
-function goToOfficerProfile (id) {
-  router.push(`/officer-others/profile/${id}`)
+function goToOfficerProfile(id) {
+  router.push(`/officer-others/profile/${id}`);
 }
 
-const printProfileModal = reactive({ show: false, url: '' })
+const printProfileModal = reactive({ show: false, url: "" });
 
-function goToOfficerPrintProfile (id) {
-  printProfileModal.url = `${window.location.origin}/#/officer/print/profile/${id}`
-  printProfileModal.show = true
+function goToOfficerPrintProfile(id) {
+  printProfileModal.url = `${window.location.origin}/#/officer/print/profile/${id}`;
+  printProfileModal.show = true;
 }
 
-function closePrintProfileModal () {
-  printProfileModal.show = false
+function closePrintProfileModal() {
+  printProfileModal.show = false;
 }
 
-const reportToggle = ref(false)
-const reportDropdownOptions = [{ label: 'បញ្ជីមន្ត្រីតាមឋានានុក្រមអង្គភាព', key: 'officersByOrganizational' }]
+const reportToggle = ref(false);
+const reportDropdownOptions = [
+  {
+    label: "បញ្ជីមន្ត្រីតាមឋានានុក្រមអង្គភាព",
+    key: "officersByOrganizational",
+  },
+];
 
-function reportToggleFunc () {
-  reportToggle.value = !reportToggle.value
+function reportToggleFunc() {
+  reportToggle.value = !reportToggle.value;
 }
 
-function onReportMenuSelect (key) {
-  if (key === 'officersByOrganizational') {
-    reportToggleFunc()
+function onReportMenuSelect(key) {
+  if (key === "officersByOrganizational") {
+    reportToggleFunc();
   }
 }
 
-function getTermsMultipleDelimiters (sentence, delimiters = [' ', ',', ';', '|']) {
-  const pattern = delimiters.map((d) => d.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')
-  const regex = new RegExp(pattern, 'g')
-  return sentence.split(regex).filter((term) => term.trim() !== '')
+function getTermsMultipleDelimiters(
+  sentence,
+  delimiters = [" ", ",", ";", "|"],
+) {
+  const pattern = delimiters
+    .map((d) => d.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  const regex = new RegExp(pattern, "g");
+  return sentence.split(regex).filter((term) => term.trim() !== "");
 }
 
-function highlightMultipleTerms (text, searchTerms) {
-  if (text === undefined || text === null) return text
-  if (searchTerms === undefined || searchTerms === null) return text
-  let out = String(text)
+function highlightMultipleTerms(text, searchTerms) {
+  if (text === undefined || text === null) return text;
+  if (searchTerms === undefined || searchTerms === null) return text;
+  let out = String(text);
   if (out.length > 0 && searchTerms.length > 0) {
-    const terms = getTermsMultipleDelimiters(searchTerms)
-    if (terms.length <= 0) return out
+    const terms = getTermsMultipleDelimiters(searchTerms);
+    if (terms.length <= 0) return out;
     terms.forEach((term) => {
       if (out.toLowerCase().includes(term.toLowerCase())) {
-        const regex = new RegExp(`(${term})`, 'gi')
-        out = out.replace(regex, '<mark>$1</mark>')
+        const regex = new RegExp(`(${term})`, "gi");
+        out = out.replace(regex, "<mark>$1</mark>");
       }
-    })
+    });
   }
-  return out
+  return out;
 }
 
-function getOfficerCertificateGroupName (certificateGroupId) {
-  const groups = Array.isArray(store.getters['certificate/getGroups']) ? store.getters['certificate/getGroups'] : []
-  const matchedGroup = groups.find((group) => Number(group?.id || 0) === Number(certificateGroupId || 0))
-  return String(matchedGroup?.name || '').trim()
+function getOfficerCertificateGroupName(certificateGroupId) {
+  const groups = Array.isArray(store.getters["certificate/getGroups"])
+    ? store.getters["certificate/getGroups"]
+    : [];
+  const matchedGroup = groups.find(
+    (group) => Number(group?.id || 0) === Number(certificateGroupId || 0),
+  );
+  return String(matchedGroup?.name || "").trim();
 }
 
-function getOfficerCertificateLabel (certificate) {
-  const certificateGroupId = Number(certificate?.certificate_group_id || certificate?.group?.id || 0)
-  const certificateNote = String(certificate?.certificate_note || '').trim()
+function getOfficerCertificateLabel(certificate) {
+  const certificateGroupId = Number(
+    certificate?.certificate_group_id || certificate?.group?.id || 0,
+  );
+  const certificateNote = String(certificate?.certificate_note || "").trim();
   const groupName =
-    String(certificate?.group?.name || '').trim() || getOfficerCertificateGroupName(certificateGroupId)
-  if ((certificateGroupId === 3 || certificateGroupId === 8) && certificateNote !== '') {
-    return certificateNote
+    String(certificate?.group?.name || "").trim() ||
+    getOfficerCertificateGroupName(certificateGroupId);
+  if (
+    (certificateGroupId === 3 || certificateGroupId === 8) &&
+    certificateNote !== ""
+  ) {
+    return certificateNote;
   }
-  return groupName || certificateNote
+  return groupName || certificateNote;
 }
 
-function getOfficerCertificateText (record) {
-  const certificates = Array.isArray(record?.people?.certificates) ? record.people.certificates : []
+function getOfficerCertificateText(record) {
+  const certificates = Array.isArray(record?.people?.certificates)
+    ? record.people.certificates
+    : [];
   return Array.from(
     new Set(
       certificates
         .map((certificate) => getOfficerCertificateLabel(certificate))
-        .filter((label) => label !== ''),
+        .filter((label) => label !== ""),
     ),
-  ).join(', ')
+  ).join(", ");
 }
 
-const instance = getCurrentInstance()
+const instance = getCurrentInstance();
 
-function khNum (s) {
-  return instance?.proxy?.$toKhmer?.(s) ?? s
+function khNum(s) {
+  return instance?.proxy?.$toKhmer?.(s) ?? s;
 }
 
-function formatDateCellKh (raw) {
-  if (raw == null || raw === '') return ''
-  const d = new Date(raw)
-  if (Number.isNaN(d.getTime())) return ''
-  return khNum(dateFormat(d, 'dd-mm-yyyy'))
+function formatDateCellKh(raw) {
+  if (raw == null || raw === "") return "";
+  const d = new Date(raw);
+  if (Number.isNaN(d.getTime())) return "";
+  return khNum(dateFormat(d, "dd-mm-yyyy"));
 }
 
-function formatDobCellKh (record) {
-  if (!record?.people?.dob) return ''
-  return formatDateCellKh(record.people.dob)
+function formatDobCellKh(record) {
+  if (!record?.people?.dob) return "";
+  return formatDateCellKh(record.people.dob);
 }
 
 void Promise.allSettled([getOrganizations(), getCertificates()]).then(() => {
-  getRecords()
-})
+  getRecords();
+});
 </script>
 
 <style scoped>
@@ -1516,7 +1760,10 @@ void Promise.allSettled([getOrganizations(), getCertificates()]).then(() => {
 .vcb-filters-bar .filter-actions .filter-action.filter-action--clear-filters {
   @apply w-full md:w-auto min-w-0 flex items-end;
 }
-.vcb-filters-bar .filter-actions .filter-action.filter-action--clear-filters :deep(.n-button) {
+.vcb-filters-bar
+  .filter-actions
+  .filter-action.filter-action--clear-filters
+  :deep(.n-button) {
   @apply w-full sm:w-auto;
 }
 .vcb-table-toggle-btn {

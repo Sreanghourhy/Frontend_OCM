@@ -70,6 +70,15 @@ const actions = {
   async passwordUpdate({ state, commit, rootState },params) {
     return await crud.put(import.meta.env.VITE_API_SERVER+"/password/reset",params)
   },
+  async telegramPasswordForgotSendOtp({ state, commit, rootState },params) {
+    return await crud.update(import.meta.env.VITE_API_SERVER+"/password/forgot/telegram/send",params)
+  },
+  async telegramPasswordForgotVerifyOtp({ state, commit, rootState },params) {
+    return await crud.update(import.meta.env.VITE_API_SERVER+"/password/forgot/telegram/verify",params)
+  },
+  async telegramPasswordForgotReset({ state, commit, rootState },params) {
+    return await crud.update(import.meta.env.VITE_API_SERVER+"/password/forgot/telegram/reset",params)
+  },
   async upload({ state, commit, rootState },formData) {    
     return await crud.upload(import.meta.env.VITE_API_SERVER+"/"+state.model.name+"/upload",formData)
   },

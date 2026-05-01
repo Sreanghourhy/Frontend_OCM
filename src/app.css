@@ -171,7 +171,12 @@ body * {
 
 /* System layout background (dashboard, officer, etc.) */
 .system-layout {
-  
+  /*
+    Sidebar open/close used to animate the main layout margin, which forced
+    large tables and charts to reflow on every animation frame.
+    Keep the content shift instant so only the sidebar itself animates.
+  */
+  transition: none !important;
 }
 
 .fade-enter-active,

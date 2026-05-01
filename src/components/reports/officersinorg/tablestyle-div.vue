@@ -1,5 +1,18 @@
 <template >
     <div class="report-officers-org w-full relative mt-8 text-sm leading-normal">
+        <div class="mb-4 flex justify-end print:hidden">
+            <button
+                type="button"
+                class="inline-flex items-center gap-2 rounded border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm transition hover:border-blue-500 hover:text-blue-600"
+                title="Close report"
+                @click="closeReport"
+            >
+                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10.78 10l4.36-4.36a.75.75 0 1 0-1.06-1.06L9.72 8.94L5.36 4.58a.75.75 0 1 0-1.06 1.06L8.66 10l-4.36 4.36a.75.75 0 1 0 1.06 1.06l4.36-4.36l4.36 4.36a.75.75 0 0 0 1.06-1.06L10.78 10Z" clip-rule="evenodd" />
+                </svg>
+                Close
+            </button>
+        </div>
         <!-- Body Khmer: scoped .report-officers-org (Siemreap); Moul / Tacteing on letterhead — matches print profiles -->
         <header class="report-letterhead mb-6 flex flex-wrap items-start justify-between gap-6 px-1">
             <div class="report-letterhead__left min-w-0 max-w-xl flex-1 text-left">
@@ -131,6 +144,7 @@ export default {
 
         const store = useStore()
         const route = useRoute()
+        const router = useRouter()
         const dialog = useDialog()
 
         const organizations = ref([])
@@ -239,6 +253,10 @@ export default {
             })
         }
 
+        function closeReport() {
+            router.push('/officer')
+        }
+
         updateSelectedOrganization()
 
         return {
@@ -252,6 +270,7 @@ export default {
             reloadReportOverlay ,
             dateFormat,
             deleteOfficerJob,
+            closeReport,
             totalByPositions, 
             totalOfficers   
         }

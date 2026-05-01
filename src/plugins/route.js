@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { isAdmin, isAuth , getUser, hasPermission } from './authentication'
 
 import LoginComponent from './../layouts/login/index.vue'
+import ForgotPasswordComponent from './../layouts/login/forgot_password.vue'
 import DashboardComponent from '../layouts/dashboard/index.vue'
 import DashboardBackupViewComponent from '../components/dashboard-backup/DashboardView.vue'
 import WelcomeComponent from '../layouts/welcome/portal/mainportal.vue'
@@ -737,6 +738,17 @@ export const getRoutes = () => {
                 name: "LoginPage" ,
                 path: '/login' , 
                 component: LoginComponent ,
+                meta: {
+                    // transition: 'fade'
+                },
+                permissions: [
+                    'portal_auth_login'
+                ],
+            },
+            {
+                name: "ForgotPasswordPage" ,
+                path: '/forgot-password' ,
+                component: ForgotPasswordComponent ,
                 meta: {
                     // transition: 'fade'
                 },
