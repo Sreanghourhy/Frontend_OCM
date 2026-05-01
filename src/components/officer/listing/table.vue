@@ -138,7 +138,7 @@
       </div>
     </div>
     <!-- Table of crud -->
-    <div class="vcb-table-panel relative min-w-0 overflow-hidden bg-white">
+    <div class="vcb-table-panel relative min-w-0 overflow-x-hidden overflow-y-visible bg-white">
       <div class="vcb-filters-bar">
         <div class="flex items-start justify-between gap-4">
           <div class="flex-1 min-w-0">
@@ -889,15 +889,19 @@
                   </template>
                 </td>
                 <td
-                  class="otc-col-actions otc-col-actions-cell text-left align-middle"
+                  :class="[
+                    'otc-col-actions otc-col-actions-cell text-left align-middle',
+                    { 'otc-col-actions-cell--menu-open': isRowActionMenuOpen(record.id) },
+                  ]"
                 >
-                  <div class="flex items-center gap-1 whitespace-nowrap">
+                  <div class="officer-row-actions">
                     <button
                       v-if="
                         $hasPermission('portal_staff_background_information')
                       "
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-2.5 h-7 rounded-md border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:border-blue-300 shadow-sm hover:shadow duration-200"
+                      title="View"
+                      class="officer-row-action-btn officer-row-action-btn--view"
                       @click="goToOfficerPrintProfile(record.id)"
                     >
                       <svg
@@ -914,11 +918,64 @@
                     </button>
                     <button
                       v-if="
+                        $hasPermission('portal_staff_background_information')
+                      "
+                      type="button"
+                      title="Edit"
+                      class="officer-row-action-btn officer-row-action-btn--edit"
+                      @click="goToOfficerProfile(record.id)"
+                    >
+                      <svg
+                        class="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                      >
+                        <!-- simple edit pencil -->
+                        <path
+                          fill="currentColor"
+                          d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 2.83H5v-.92l9.06-9.06l.92.92L5.92 20.08zM20.71 7.04a1.003 1.003 0 0 0 0-1.42l-2.34-2.34a1.003 1.003 0 0 0-1.42 0l-1.83 1.83l3.75 3.75l1.84-1.82z"
+                        />
+                      </svg>
+                      <span class="text-xs leading-none">កែប្រែ</span>
+                    </button>
+                    <div
+                      v-if="
+                        $hasPermission('portal_staff_print_preview_officer_card') ||
+                        $hasPermission('portal_staff_delete')
+                      "
+                      class="officer-row-actions-menu"
+                    >
+                      <button
+                        type="button"
+                        title="More"
+                        class="officer-row-action-btn officer-row-action-btn--more"
+                        @click.stop="toggleRowActionMenu(record.id)"
+                      >
+                        <svg
+                          class="w-4 h-4"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle cx="12" cy="5" r="1.75" fill="currentColor" />
+                          <circle cx="12" cy="12" r="1.75" fill="currentColor" />
+                          <circle cx="12" cy="19" r="1.75" fill="currentColor" />
+                        </svg>
+                      </button>
+                      <div
+                        v-if="isRowActionMenuOpen(record.id)"
+                        class="officer-row-actions-dropdown"
+                        @click.stop
+                      >
+                    <button
+                      v-if="
                         $hasPermission('portal_staff_print_preview_officer_card')
                       "
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-2.5 h-7 rounded-md border border-violet-200 bg-violet-50 text-violet-700 hover:bg-violet-100 hover:border-violet-300 shadow-sm hover:shadow duration-200"
-                      @click="showOfficialCardModal(record)"
+                      class="officer-row-dropdown-item officer-row-dropdown-item--card"
+                      @click="
+                        closeRowActionMenu();
+                        showOfficialCardModal(record);
+                      "
                     >
                       <svg
                         class="w-4 h-4"
@@ -935,11 +992,10 @@
                       <span class="text-xs leading-none">កាត</span>
                     </button>
                     <button
-                      v-if="
-                        $hasPermission('portal_staff_background_information')
-                      "
+                      v-if="false"
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-2.5 h-7 rounded-md border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 hover:border-amber-300 shadow-sm hover:shadow duration-200"
+                      title="Edit"
+                      class="officer-row-action-btn officer-row-action-btn--edit"
                       @click="goToOfficerProfile(record.id)"
                     >
                       <svg
@@ -961,8 +1017,11 @@
                     <button
                       v-if="$hasPermission('portal_staff_delete')"
                       type="button"
-                      class="inline-flex items-center gap-1.5 px-2.5 h-7 rounded-md border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 hover:border-red-300 shadow-sm hover:shadow duration-200"
-                      @click="deleteOfficer(record)"
+                      class="officer-row-dropdown-item officer-row-dropdown-item--danger"
+                      @click="
+                        closeRowActionMenu();
+                        deleteOfficer(record);
+                      "
                     >
                       <svg
                         class="w-4 h-4"
@@ -1020,6 +1079,8 @@
                       </svg>
                       <span class="text-xs leading-none">លុប</span>
                     </button>
+                      </div>
+                    </div>
                   </div>
                   <!-- <table-actions-form v-bind:model="model" v-bind:record="record" :onClose="closeActions" /> -->
                 </td>
@@ -1417,7 +1478,7 @@
   </div>
 </template>
 <script>
-import { reactive, ref, computed, watch } from "vue";
+import { reactive, ref, computed, watch, onMounted, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 import QrcodeVue from "qrcode.vue";
@@ -1656,6 +1717,38 @@ export default {
     );
 
     const selectedOfficerTypes = ref(initialLockedOfficerTypes);
+    const openRowActionMenuId = ref(null);
+
+    function toggleRowActionMenu(recordId) {
+      openRowActionMenuId.value =
+        openRowActionMenuId.value === recordId ? null : recordId;
+    }
+
+    function closeRowActionMenu() {
+      openRowActionMenuId.value = null;
+    }
+
+    function isRowActionMenuOpen(recordId) {
+      return openRowActionMenuId.value === recordId;
+    }
+
+    function handleRowActionOutsideClick(event) {
+      if (
+        event.target instanceof Element &&
+        event.target.closest(".officer-row-actions")
+      ) {
+        return;
+      }
+      closeRowActionMenu();
+    }
+
+    onMounted(() => {
+      document.addEventListener("click", handleRowActionOutsideClick);
+    });
+
+    onBeforeUnmount(() => {
+      document.removeEventListener("click", handleRowActionOutsideClick);
+    });
 
     function setAllColumns(isVisible) {
       Object.keys(columnVisibility).forEach((k) => {
@@ -2809,6 +2902,10 @@ export default {
       goToReportByOrganization,
       dateFormat,
       thumbnailView,
+      openRowActionMenuId,
+      toggleRowActionMenu,
+      closeRowActionMenu,
+      isRowActionMenuOpen,
 
       toggleWildSearch,
       isWildSearch,
@@ -2878,6 +2975,81 @@ export default {
   box-shadow: -6px 0 14px -6px rgba(15, 23, 42, 0.12);
   border-left: 1px solid rgb(229 231 235);
   vertical-align: middle;
+  overflow: visible;
+}
+.otc-table .otc-col-actions-cell--menu-open {
+  z-index: 999;
+}
+.officer-row-actions {
+  @apply relative flex items-center gap-2 whitespace-nowrap;
+  z-index: 10;
+}
+.officer-row-actions-menu {
+  @apply relative;
+  z-index: 999;
+}
+.officer-row-action-btn {
+  @apply inline-flex items-center justify-center gap-1.5 h-8 px-3 rounded-md border text-xs leading-none shadow-sm transition duration-200;
+}
+.officer-row-action-btn--view {
+  @apply border-blue-600 bg-blue-600 text-white hover:bg-blue-700 hover:border-blue-700 hover:shadow;
+}
+.officer-row-action-btn--edit {
+  @apply border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100 hover:border-amber-300 hover:shadow;
+}
+.officer-row-action-btn--more {
+  @apply w-8 px-0 rounded-full border-gray-200 bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-800 hover:border-gray-300 hover:shadow-md transition-all duration-150;
+}
+.officer-row-actions-dropdown {
+  @apply absolute right-0 mt-2 min-w-[11rem] overflow-hidden border bg-white py-2 transition-all duration-150;
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  z-index: 1000;
+  border-color: #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+  background-color: #ffffff;
+}
+.officer-row-dropdown-item {
+  @apply flex w-full cursor-pointer items-center gap-3 rounded-md px-4 py-2 text-left text-sm transition-all duration-150;
+  color: #374151;
+}
+.officer-row-dropdown-item svg {
+  @apply h-4 w-4 flex-shrink-0 transition-colors duration-150;
+  color: #6b7280;
+}
+.officer-row-dropdown-item span {
+  @apply leading-5;
+}
+.officer-row-dropdown-item--card {
+  background-color: #ffffff;
+  color: #1e40af;
+}
+.officer-row-dropdown-item--card svg {
+  color: #1e40af;
+}
+.officer-row-dropdown-item--card:hover {
+  background-color: #eff6ff;
+}
+.officer-row-dropdown-item--edit {
+  background-color: #ffffff;
+  color: #b45309;
+}
+.officer-row-dropdown-item--edit svg {
+  color: #b45309;
+}
+.officer-row-dropdown-item--edit:hover {
+  background-color: #fffbeb;
+}
+.officer-row-dropdown-item--danger {
+  background-color: #ffffff;
+  color: #dc2626;
+}
+.officer-row-dropdown-item--danger svg {
+  color: #dc2626;
+}
+.officer-row-dropdown-item--danger:hover {
+  background-color: #fef2f2;
 }
 .otc-table .otc-body-row {
   @apply border-b border-gray-100;
